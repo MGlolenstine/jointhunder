@@ -1,0 +1,9 @@
+author: MGlolenstine
+name: JoinThunder
+version: 1.0
+main: xyz.mglolenstine.jointhunder.Main
+depend: [Vault]
+commands:
+  jt:
+    usage: /jt <options>
+    description: basic JoinThunder command
