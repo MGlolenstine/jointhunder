@@ -7,18 +7,32 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 /**
  * Created by LifEorDeatH on 17.7.2017.
  */
 public class MyListener implements Listener{
-    Main plugin = Main.getPlugin(Main.class);
+    private Main plugin = Main.getPlugin(Main.class);
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
         Permission permission = plugin.perms;
         Player p = e.getPlayer();
         String group = permission.getPrimaryGroup(p);
-        if(group.equalsIgnoreCase("god")){
-            e.getPlayer().getWorld().strikeLightningEffect(e.getPlayer().getLocation());
+        //Set<String> ss = plugin.getConfig().getConfigurationSection("groups").getKeys(false);
+        ArrayList<String> ss = (ArrayList<String>) plugin.getConfig().getStringList("groups");
+        for(String groupn : ss){
+            if (group.equalsIgnoreCase(groupn)) {
+                e.getPlayer().getWorld().strikeLightningEffect(e.getPlayer().getLocation());
+                return;
+            }
+        }
+        ss = (ArrayList<String>) plugin.getConfig().getStringList("players");
+        for(String name : ss){
+            if (e.getPlayer().getName().equals(name)) {
+                e.getPlayer().getWorld().strikeLightningEffect(e.getPlayer().getLocation());
+            }
         }
         //e.getPlayer().sendMessage("Your group is "+group);
     }
