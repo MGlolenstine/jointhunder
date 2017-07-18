@@ -2,6 +2,7 @@ package xyz.mglolenstine.jointhunder;
 
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -19,7 +20,12 @@ public class MyListener implements Listener{
     public void onPlayerJoin(PlayerJoinEvent e){
         Permission permission = plugin.perms;
         Player p = e.getPlayer();
-        String group = permission.getPrimaryGroup(p);
+        String group = "";
+        try {
+            group = permission.getPrimaryGroup(p);
+        }catch(UnsupportedOperationException e1){
+            System.out.println("[WARNING] Player "+p.getName()+" is currently not in a group!");
+        }
         //Set<String> ss = plugin.getConfig().getConfigurationSection("groups").getKeys(false);
         ArrayList<String> ss = (ArrayList<String>) plugin.getConfig().getStringList("groups");
         for(String groupn : ss){

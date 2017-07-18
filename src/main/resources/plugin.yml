@@ -7,3 +7,6 @@ commands:
   jt:
     usage: /jt <options>
     description: basic JoinThunder command
+permissions:
+  jointhunder.admin:
+    default: op

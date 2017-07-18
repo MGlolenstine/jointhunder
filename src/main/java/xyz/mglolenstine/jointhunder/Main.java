@@ -11,6 +11,7 @@ public class Main extends JavaPlugin {
     Permission perms = null;
     public void onEnable(){
         saveConfig();
+        this.getCommand("jt").setExecutor(new Command());
         this.getServer().getPluginManager().registerEvents(new MyListener(), this);
         if(setupPermissions()){
             System.out.println("Vault has been initialized successfully!");
